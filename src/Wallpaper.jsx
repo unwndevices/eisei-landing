@@ -53,19 +53,27 @@ const Layer = ({
         }
 
         const renderFrame = () => {
-            const canvasAspectRatio = canvas.width / canvas.height
+            const zoom = 1.02 
             let drawWidth, drawHeight, offsetX, offsetY
 
-            if (canvasAspectRatio > aspectRatio) {
-                drawWidth = canvas.width
-                drawHeight = canvas.width / aspectRatio
-                offsetX = 0
-                offsetY = (canvas.height - drawHeight) / 2
-            } else {
-                drawWidth = canvas.height * aspectRatio
+            // Always fill the width
+            drawWidth = canvas.width * zoom
+            drawHeight = drawWidth / aspectRatio
+
+            // Center horizontally
+            offsetX = -(drawWidth - canvas.width) / 2
+
+            // Adjust vertical positioning to fill and crop if necessary
+            if (drawHeight < canvas.height) {
+                // If image is shorter than canvas, scale to fill height
+                const scale = canvas.height / drawHeight
+                drawWidth *= scale
                 drawHeight = canvas.height
-                offsetX = (canvas.width - drawWidth) / 2
+                offsetX = -(drawWidth - canvas.width) / 2
                 offsetY = 0
+            } else {
+                // If image is taller than canvas, crop from the center
+                offsetY = -(drawHeight - canvas.height) / 2
             }
 
             if (backgroundColor) {
@@ -107,7 +115,7 @@ const Layer = ({
         <canvas
             ref={canvasRef}
             style={{
-                position: 'absolute',
+                position: 'fixed', // Change to fixed to prevent scrolling issues
                 top: 0,
                 left: 0,
                 width: '100%',
