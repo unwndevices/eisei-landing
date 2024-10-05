@@ -116,10 +116,10 @@ const Layer = ({
             ref={canvasRef}
             style={{
                 position: 'fixed', // Change to fixed to prevent scrolling issues
-                top: 0,
-                left: 0,
-                width: '100%',
-                height: '100%',
+                top: -10,
+                left: -10,
+                width: '105%',
+                height: '105%',
                 zIndex,
                 ...style,
             }}
@@ -152,6 +152,9 @@ export const Layer1 = () => {
             zIndex={-2}
             addFilmGrain={true}
             backgroundColor="#a8a8a8"
+            style={{
+                filter: 'blur(5px)',
+            }}
         />
     )
 }
