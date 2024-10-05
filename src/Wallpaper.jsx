@@ -53,7 +53,7 @@ const Layer = ({
         }
 
         const renderFrame = () => {
-            const zoom = 1.02 
+            const zoom = 1.02
             let drawWidth, drawHeight, offsetX, offsetY
 
             // Always fill the width
@@ -95,7 +95,7 @@ const Layer = ({
             const imageData = ctx.getImageData(0, 0, width, height)
             const data = imageData.data
             for (let i = 0; i < data.length; i += 4) {
-                const noise = Math.random() * 20 - 10
+                const noise = Math.random() * 10 - 5
                 data[i] += noise
                 data[i + 1] += noise
                 data[i + 2] += noise
