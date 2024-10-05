@@ -8,10 +8,10 @@ function Header() {
             justifyContent="space-between"
             alignItems="center"
             py={4}
-            px={10}
+            px={[5, 5, 8, 10]}
             position="relative"
         >
-            <Box py={4} zIndex={1}>
+            <Box zIndex={1}>
                 <Image src={eisei} alt="Logo" maxW="150px" />
             </Box>
             <Flex justifyContent="center" gap={6} zIndex={3}>

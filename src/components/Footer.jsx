@@ -7,9 +7,8 @@ function Footer() {
             justifyContent="space-between"
             alignItems="flex-end"
             py={4}
-            px={10}
+            px={[5, 5, 8, 10]}
             position="relative"
-            mt={[0, 10, 10, 10]}
         >
             <Text>© 2024 Unknown Devices</Text>
             <Image src={logo} alt="Logo" maxW="30px" />
