@@ -7,7 +7,7 @@ const useImageSequence = (prefix) => {
 
     useEffect(() => {
         const loadImages = async () => {
-            const imagePromises = Array.from({ length: 25 }, (_, i) => {
+            const imagePromises = Array.from({ length: 49 }, (_, i) => {
                 const img = new Image()
                 img.src = `/seq/${prefix}_${String(i).padStart(2, '0')}.webp`
                 return new Promise((resolve) => {
@@ -129,6 +129,7 @@ const Layer = ({
 
 export const Layer1 = () => {
     const { images, currentFrame, setCurrentFrame } = useImageSequence('wp1')
+    const [isGyroAvailable, setIsGyroAvailable] = useState(false)
 
     useEffect(() => {
         const handleMouseMove = (e) => {
@@ -138,12 +139,60 @@ export const Layer1 = () => {
             setCurrentFrame(frame)
         }
 
+        const handleDeviceOrientation = (e) => {
+            if (e.beta !== null) {
+                const frame = Math.floor(
+                    ((e.beta + 90) / 180) * (images.length - 1)
+                )
+                setCurrentFrame(Math.max(0, Math.min(frame, images.length - 1)))
+            }
+        }
+
+        const checkGyroAvailability = () => {
+            if (
+                typeof DeviceOrientationEvent !== 'undefined' &&
+                typeof DeviceOrientationEvent.requestPermission === 'function'
+            ) {
+                // iOS 13+ devices
+                DeviceOrientationEvent.requestPermission()
+                    .then((permissionState) => {
+                        if (permissionState === 'granted') {
+                            setIsGyroAvailable(true)
+                            window.addEventListener(
+                                'deviceorientation',
+                                handleDeviceOrientation
+                            )
+                        }
+                    })
+                    .catch(console.error)
+            } else if ('DeviceOrientationEvent' in window) {
+                // Other devices
+                setIsGyroAvailable(true)
+                window.addEventListener(
+                    'deviceorientation',
+                    handleDeviceOrientation
+                )
+            }
+        }
+
+        // Always add mouse event listener for desktop
         window.addEventListener('mousemove', handleMouseMove)
+
+        // Check for gyro only on mobile devices
+        if (/Mobi|Android/i.test(navigator.userAgent)) {
+            checkGyroAvailability()
+        }
 
         return () => {
             window.removeEventListener('mousemove', handleMouseMove)
+            if (isGyroAvailable) {
+                window.removeEventListener(
+                    'deviceorientation',
+                    handleDeviceOrientation
+                )
+            }
         }
-    }, [images.length, setCurrentFrame])
+    }, [images.length, setCurrentFrame, isGyroAvailable])
 
     return (
         <Layer
@@ -161,6 +210,7 @@ export const Layer1 = () => {
 
 export const Layer2 = () => {
     const { images, currentFrame, setCurrentFrame } = useImageSequence('wp2')
+    const [isGyroAvailable, setIsGyroAvailable] = useState(false)
 
     useEffect(() => {
         const handleMouseMove = (e) => {
@@ -170,12 +220,60 @@ export const Layer2 = () => {
             setCurrentFrame(frame)
         }
 
+        const handleDeviceOrientation = (e) => {
+            if (e.gamma !== null) {
+                const frame = Math.floor(
+                    ((e.gamma + 90) / 180) * (images.length - 1)
+                )
+                setCurrentFrame(Math.max(0, Math.min(frame, images.length - 1)))
+            }
+        }
+
+        const checkGyroAvailability = () => {
+            if (
+                typeof DeviceOrientationEvent !== 'undefined' &&
+                typeof DeviceOrientationEvent.requestPermission === 'function'
+            ) {
+                // iOS 13+ devices
+                DeviceOrientationEvent.requestPermission()
+                    .then((permissionState) => {
+                        if (permissionState === 'granted') {
+                            setIsGyroAvailable(true)
+                            window.addEventListener(
+                                'deviceorientation',
+                                handleDeviceOrientation
+                            )
+                        }
+                    })
+                    .catch(console.error)
+            } else if ('DeviceOrientationEvent' in window) {
+                // Other devices
+                setIsGyroAvailable(true)
+                window.addEventListener(
+                    'deviceorientation',
+                    handleDeviceOrientation
+                )
+            }
+        }
+
+        // Always add mouse event listener for desktop
         window.addEventListener('mousemove', handleMouseMove)
+
+        // Check for gyro only on mobile devices
+        if (/Mobi|Android/i.test(navigator.userAgent)) {
+            checkGyroAvailability()
+        }
 
         return () => {
             window.removeEventListener('mousemove', handleMouseMove)
+            if (isGyroAvailable) {
+                window.removeEventListener(
+                    'deviceorientation',
+                    handleDeviceOrientation
+                )
+            }
         }
-    }, [images.length, setCurrentFrame])
+    }, [images.length, setCurrentFrame, isGyroAvailable])
 
     return (
         <Layer
