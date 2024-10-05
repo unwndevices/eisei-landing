@@ -9,7 +9,7 @@ function Footer() {
             py={4}
             px={10}
             position="relative"
-            mt={[0,10]}
+            mt={[0, 10, 10, 10]}
         >
             <Text>© 2024 Unknown Devices</Text>
             <Image src={logo} alt="Logo" maxW="30px" />

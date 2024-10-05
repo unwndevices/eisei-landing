@@ -55,7 +55,7 @@ function NewsletterForm() {
                 }
 
                 return (
-                    <Box width="100%" maxW="800px" zIndex={3} pb={[0, 20]}>
+                    <Box width="100%" maxW="800px" zIndex={3} pb={20}>
                         <FormControl
                             as="form"
                             isRequired
