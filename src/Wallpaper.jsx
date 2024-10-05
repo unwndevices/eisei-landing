@@ -171,6 +171,7 @@ export const Layer2 = () => {
             images={images}
             currentFrame={currentFrame}
             zIndex={1}
+            addFilmGrain={true}
             style={{
                 pointerEvents: 'none', // This makes the layer clickable-through
             }}

@@ -70,7 +70,7 @@ const CustomForm = () => {
                 }
 
                 return (
-                    <Box width="100%" maxW="800px" zIndex={3}>
+                    <Box width="100%" maxW="800px">
                         <FormControl
                             as="form"
                             isRequired
@@ -79,7 +79,7 @@ const CustomForm = () => {
                                 subscribe({ EMAIL: email })
                             }}
                         >
-                            <Heading size="3xl" mb={4}>
+                            <Heading size="3xl" mb={4} zIndex={1}>
                                 Subscribe to our newsletter!
                             </Heading>
                             <Heading
@@ -87,13 +87,14 @@ const CustomForm = () => {
                                 fontWeight="normal"
                                 size="md"
                                 mb={10}
+                                zIndex={3}
                             >
                                 Get the latest news and updates about Eisei and
                                 Unknown Devices. Eisei will launch on
                                 Kickstarter by the end of the year.
                             </Heading>
-                            <FormLabel>Email address</FormLabel>
-                            <HStack>
+                            <FormLabel zIndex={3}>Email address</FormLabel>
+                            <HStack zIndex={3}>
                                 <Input
                                     variant="filled"
                                     bg="rgba(255, 255, 255, 0.25)"
