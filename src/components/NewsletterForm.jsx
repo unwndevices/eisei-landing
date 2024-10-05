@@ -113,6 +113,10 @@ function NewsletterForm() {
                                 else.
                             </FormHelperText>
                         </FormControl>
+                        <Box
+                            display={{ base: 'block', md: 'none' }}
+                            height="40vh"
+                        />
                     </Box>
                 )
             }}
